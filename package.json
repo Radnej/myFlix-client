@@ -15,11 +15,14 @@
   },
   "homepage": "https://github.com/Radnej/myFlix-client#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.5.0"
+    "@parcel/transformer-sass": "^2.5.0",
+    "buffer": "^6.0.3",
+    "process": "^0.11.10"
   },
   "description": ""
 }
