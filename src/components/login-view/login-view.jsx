@@ -1,4 +1,13 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import CardGroup from "react-bootstrap/CardGroup";
+import Form from "react-bootstrap/Form";
 
 //login for user - taking username and password
 export function LoginView(props) {
@@ -13,33 +22,71 @@ export function LoginView(props) {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    props.onRegister(true);
+    props.onRegistration(true);
   };
 
   return (
-    <form>
-      <label>
-        Username:
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
-      <button type="submit" onClick={handleSubmit}>
-        Submit
-      </button>
-      <button type="submit" onClick={handleRegister}>
-        Register Here
-      </button>
-    </form>
+    <Container>
+      <Row>
+        <Col></Col>
+        <Col>
+          <Card
+            style={{
+              marginTop: 200,
+              marginBottom: 100,
+              width: "30rem",
+              height: "20rem",
+            }}
+          >
+            <Card.Body>
+              <Card.Title style={{ textAlign: "center", fontSize: "" }} />
+              <Form>
+                <Form.Group>
+                  <Form.Label> Username: </Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    placeholder="Enter your username"
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label> Password: </Form.Label>
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder="Enter your password"
+                  />
+                </Form.Group>
+                <Button
+                  type="submit"
+                  style={{ marginTop: 20, marginRight: 5 }}
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </Button>
+                <Button
+                  variant="secondary"
+                  style={{ marginTop: 20 }}
+                  type="submit"
+                  onClick={handleRegister}
+                >
+                  Register Here
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col></Col>
+      </Row>
+    </Container>
   );
 }
+
+LoginView.propTypes = {
+  onRegistration: PropTypes.func.isRequired,
+  onLoggedIn: PropTypes.func.isRequired,
+};
