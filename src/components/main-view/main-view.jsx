@@ -1,15 +1,13 @@
 import React from "react";
 import axios from "axios";
 
+//add react-bootstrap
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import CardGroup from "react-bootstrap/CardGroup";
 import Form from "react-bootstrap/Form";
-
-//adding components to the main-view
 
 import { RegistrationView } from "../registration-view/registration-view";
 import { LoginView } from "../login-view/login-view";
@@ -22,6 +20,7 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       selectedMovie: null,
+      registered: null,
       user: null,
     };
   }
@@ -45,43 +44,39 @@ export class MainView extends React.Component {
     });
   }
 
-  /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
-
+  //when user is verified set state to current user
   onLoggedIn(user) {
     this.setState({
       user,
     });
   }
 
-  onRegistration(register) {
+  onRegister(registered) {
     this.setState({
-      register,
+      registered,
     });
   }
 
   render() {
-    const { movies, selectedMovie, user, register } = this.state;
+    const { movies, selectedMovie, user, registered } = this.state;
 
-    if (register)
-      return (
-        <RegistrationView
-          onRegistration={(bool) => this.onRegistration(bool)}
-        />
-      );
+    //forcing a registration form for testing
+    if (registered) {
+      return <RegistrationView onRegister={(bool) => this.onRegister(bool)} />;
+    }
 
     //if user is no logged in - force a login form
     if (!user) {
       return (
         <LoginView
           onLoggedIn={(user) => this.onLoggedIn(user)}
-          onRegistration={(bool) => this.onLoggedIn(user)}
+          onRegister={(bool) => this.onRegister(bool)}
         />
       );
     }
 
     // Before the movies have been loaded
-    if (movies.length === 0)
-      return <div className="main-view">The list is empty</div>;
+    if (movies.length === 0) return <div className="main-view" />;
 
     return (
       <Row className="main-view justify-content-md-center">
