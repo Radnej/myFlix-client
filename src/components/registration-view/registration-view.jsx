@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 //add react-bootstrap
 import Button from "react-bootstrap/Button";
@@ -75,3 +76,7 @@ export function RegistrationView(props) {
     </Row>
   );
 }
+
+RegistrationView.propTypes = {
+  onRegistration: PropTypes.func.isRequired,
+};
