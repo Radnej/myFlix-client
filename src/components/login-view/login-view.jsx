@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 //add react-bootstrap
 import Button from "react-bootstrap/Button";
@@ -17,8 +18,19 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    props.onLoggedIn(username);
+    /* Send a request to the server for authentication */
+    axios
+      .post("https://my-flix-220508.herokuapp.com/login", {
+        Username: username,
+        Password: password,
+      })
+      .then((response) => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch((e) => {
+        console.log("no such user");
+      });
   };
 
   const handleRegister = (e) => {
@@ -86,6 +98,6 @@ export function LoginView(props) {
 }
 
 LoginView.propTypes = {
-  onRegistration: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
   onLoggedIn: PropTypes.func.isRequired,
 };

@@ -16,11 +16,59 @@ export function RegistrationView(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  conset[(values, setValues)] = useState({
+    nameErr: "",
+    usernameErr: "",
+    passwordErr: "",
+    emailErr: "",
+  });
+
+  // validate user inputs
+  const validate = () => {
+    let isReq = true;
+    if (!username) {
+      setUsernameErr("Username Required");
+      isReq = false;
+    } else if (username.length < 2) {
+      setUsernameErr("Username must be 2 characters long");
+      isReq = false;
+    }
+    if (!password) {
+      setPasswordErr("Password Required");
+      isReq = false;
+    } else if (password.length < 6) {
+      setPassword("Password must be 6 characters long");
+      isReq = false;
+    }
+    if (!email) {
+      setEmailErr("Email Required");
+      isReq = false;
+    } else if (email.length < 6) {
+      setEmail("");
+      isReq = false;
+    }
+
+    return isReq;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthday);
-    props.onRegister(false);
+    const isReq = validate();
+    if (isReq) {
+      /* Send request to the server for authentication */
+      axios
+        .post("https://my-flix-220508.herokuapp.com/login", {
+          Username: username,
+          Password: password,
+        })
+        .then((response) => {
+          const data = response.data;
+          props.onLoggedIn(data);
+        })
+        .catch((e) => {
+          console.log("no such user");
+        });
+    }
   };
 
   return (
@@ -78,5 +126,5 @@ export function RegistrationView(props) {
 }
 
 RegistrationView.propTypes = {
-  onRegistration: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
 };
