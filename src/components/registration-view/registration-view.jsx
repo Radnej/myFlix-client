@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 //add react-bootstrap
 import Button from "react-bootstrap/Button";
@@ -16,12 +17,11 @@ export function RegistrationView(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-  conset[(values, setValues)] = useState({
-    nameErr: "",
-    usernameErr: "",
-    passwordErr: "",
-    emailErr: "",
-  });
+
+  // Declare hook for each input
+  const [usernameErr, setUsernameErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
+  const [emailErr, setEmailErr] = useState("");
 
   // validate user inputs
   const validate = () => {
@@ -29,8 +29,8 @@ export function RegistrationView(props) {
     if (!username) {
       setUsernameErr("Username Required");
       isReq = false;
-    } else if (username.length < 2) {
-      setUsernameErr("Username must be 2 characters long");
+    } else if (username.length < 5) {
+      setUsernameErr("Username must be 5 characters long");
       isReq = false;
     }
     if (!password) {
@@ -43,8 +43,8 @@ export function RegistrationView(props) {
     if (!email) {
       setEmailErr("Email Required");
       isReq = false;
-    } else if (email.length < 6) {
-      setEmail("");
+    } else if (email.indexOf("@") === -1) {
+      setEmail("Email must be a valid email address");
       isReq = false;
     }
 
@@ -57,16 +57,21 @@ export function RegistrationView(props) {
     if (isReq) {
       /* Send request to the server for authentication */
       axios
-        .post("https://my-flix-220508.herokuapp.com/login", {
+        .post("https://my-flix-220508.herokuapp.com/users", {
           Username: username,
           Password: password,
+          email: email,
+          birthday: birthday,
         })
         .then((response) => {
           const data = response.data;
-          props.onLoggedIn(data);
+          console.log(data);
+          alert("Registration successful, please login!");
+          window.open("/", "_self");
         })
-        .catch((e) => {
-          console.log("no such user");
+        .catch((response) => {
+          alert("error registering the user");
+          window.open("/", "_self");
         });
     }
   };
