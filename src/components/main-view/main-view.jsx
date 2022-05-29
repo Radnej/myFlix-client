@@ -69,6 +69,14 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  onLoggedOut() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    this.setState({
+      user: null,
+    });
+  }
+
   onRegister(registered) {
     this.setState({
       registered,
@@ -106,6 +114,13 @@ export class MainView extends React.Component {
                 this.setSelectedMovie(newSelectedMovie);
               }}
             />
+            <Button
+              onClick={() => {
+                this.onLoggedOut();
+              }}
+            >
+              Logout
+            </Button>
           </Col>
         ) : (
           movies.map((movie) => (
