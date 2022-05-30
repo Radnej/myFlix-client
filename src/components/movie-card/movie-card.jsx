@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 //add react-bootstrap
 import Button from "react-bootstrap/Button";
@@ -7,7 +8,7 @@ import Card from "react-bootstrap/Card";
 
 export class MovieCard extends React.Component {
   render() {
-    const { movie, onMovieClick } = this.props;
+    const { movie } = this.props;
 
     return (
       <Card style={{ height: "100%" }}>
@@ -15,6 +16,7 @@ export class MovieCard extends React.Component {
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
+          <Link to={"/movies/${movie._id}"}></Link>
         </Card.Body>
         <Button variant="danger" onClick={() => onMovieClick(movie)}>
           Open

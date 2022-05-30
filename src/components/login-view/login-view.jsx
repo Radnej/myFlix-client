@@ -13,27 +13,27 @@ import Form from "react-bootstrap/Form";
 
 //login for user - taking username and password
 export function LoginView(props) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [Username, setUsername] = useState("");
+  const [Password, setPassword] = useState("");
 
   //declare hook for each input
-  const [usernameErr, setUsernameErr] = useState("");
-  const [passwordErr, setPasswordErr] = useState("");
+  const [UsernameErr, setUsernameErr] = useState("");
+  const [PasswordErr, setPasswordErr] = useState("");
 
   //validate user inputs
   const validate = () => {
     let isReq = true;
-    if (!username) {
+    if (!Username) {
       setUsernameErr("Username Required");
       isReq = false;
-    } else if (username.length < 5) {
+    } else if (Username.length < 5) {
       setUsernameErr("Username must be 5 characters long");
       isReq = false;
     }
-    if (!password) {
+    if (!Password) {
       setPasswordErr("Password Required");
       isReq = false;
-    } else if (password.length < 6) {
+    } else if (Password.length < 6) {
       setPassword("Password must be 6 characters long");
       isReq = false;
     }
@@ -45,8 +45,8 @@ export function LoginView(props) {
     /* Send a request to the server for authentication */
     axios
       .post("https://my-flix-220508.herokuapp.com/login", {
-        Username: username,
-        Password: password,
+        Username: Uername,
+        Password: Password,
       })
       .then((response) => {
         const data = response.data;
@@ -81,7 +81,7 @@ export function LoginView(props) {
                 <Form.Label> Username: </Form.Label>
                 <Form.Control
                   type="text"
-                  value={username}
+                  value={Username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
                   placeholder="Enter your username"
@@ -91,7 +91,7 @@ export function LoginView(props) {
                 <Form.Label> Password: </Form.Label>
                 <Form.Control
                   type="password"
-                  value={password}
+                  value={Password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="Enter your password"

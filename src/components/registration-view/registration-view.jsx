@@ -13,39 +13,45 @@ import Form from "react-bootstrap/Form";
 
 //user registration form taking necessary user details
 export function RegistrationView(props) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [Username, setUsername] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Birthday, setBirthday] = useState("");
 
   // Declare hook for each input
-  const [usernameErr, setUsernameErr] = useState("");
-  const [passwordErr, setPasswordErr] = useState("");
-  const [emailErr, setEmailErr] = useState("");
+  const [UsernameErr, setUsernameErr] = useState("");
+  const [PasswordErr, setPasswordErr] = useState("");
+  const [EmailErr, setEmailErr] = useState("");
 
   // validate user inputs
   const validate = () => {
     let isReq = true;
-    if (!username) {
+    if (!Username) {
       setUsernameErr("Username Required");
       isReq = false;
-    } else if (username.length < 5) {
+    } else if (Username.length < 5) {
       setUsernameErr("Username must be 5 characters long");
       isReq = false;
+    } else {
+      setUsernameErr("");
     }
-    if (!password) {
+    if (!Password) {
       setPasswordErr("Password Required");
       isReq = false;
-    } else if (password.length < 6) {
+    } else if (Password.length < 6) {
       setPassword("Password must be 6 characters long");
       isReq = false;
+    } else {
+      setPasswordErr("");
     }
-    if (!email) {
+    if (!Email) {
       setEmailErr("Email Required");
       isReq = false;
-    } else if (email.indexOf("@") === -1) {
+    } else if (Email.indexOf("@") === -1) {
       setEmail("Email must be a valid email address");
       isReq = false;
+    } else {
+      setEmailErr("");
     }
 
     return isReq;
@@ -58,10 +64,10 @@ export function RegistrationView(props) {
       /* Send request to the server for authentication */
       axios
         .post("https://my-flix-220508.herokuapp.com/users", {
-          Username: username,
-          Password: password,
-          email: email,
-          birthday: birthday,
+          Username: Username,
+          Password: Password,
+          Email: Email,
+          Birthday: Birthday,
         })
         .then((response) => {
           const data = response.data;
@@ -88,40 +94,44 @@ export function RegistrationView(props) {
                   <Form.Label> Username: </Form.Label>
                   <Form.Control
                     type="text"
-                    value={username}
+                    value={Username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     placeholder="Enter a username"
                   />
-                  {usernameErr && <p>{usernameErr}</p>}
+                  {UsernameErr && <p>{UsernameErr}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label> Password: </Form.Label>
                   <Form.Control
                     type="password"
-                    value={password}
+                    value={Password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  {passwordErr && <p>{passwordErr}</p>}
+                  {PasswordErr && <p>{PasswordErr}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label> Email: </Form.Label>
                   <Form.Control
                     type="email"
-                    value={email}
+                    value={Email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  {emailErr && <p>{emailErr}</p>}
+                  {EmailErr && <p>{EmailErr}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label> Birthday: </Form.Label>
                   <Form.Control
                     type="date"
-                    value={birthday}
+                    value={Birthday}
                     onChange={(e) => setBirthday(e.target.value)}
                   />
                 </Form.Group>
-                <Button type="submit" onClick={handleSubmit}>
+                <Button
+                  style={{ marginTop: "1rem" }}
+                  type="submit"
+                  onClick={handleSubmit}
+                >
                   Submit
                 </Button>
               </Form>
