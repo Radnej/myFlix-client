@@ -45,7 +45,7 @@ export function LoginView(props) {
     /* Send a request to the server for authentication */
     axios
       .post("https://my-flix-220508.herokuapp.com/login", {
-        Username: Uername,
+        Username: Username,
         Password: Password,
       })
       .then((response) => {

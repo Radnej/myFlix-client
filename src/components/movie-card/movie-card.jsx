@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 //add react-bootstrap
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+
+import { Link } from "react-router-dom";
 
 export class MovieCard extends React.Component {
   render() {
@@ -16,11 +17,24 @@ export class MovieCard extends React.Component {
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
-          <Link to={"/movies/${movie._id}"}></Link>
+          <Link to={`/movies/${movie._id}`}>
+            <Button variant="link">Open</Button>
+          </Link>
+          <Link to={`/directors/${movie.Director.Name}`}>
+            <Button variant="link">Director</Button>
+          </Link>
+          <Link to={`/genres/${movie.Genre.Name}`}>
+            <Button variant="link">Genre</Button>
+          </Link>
+          <Button
+            className="button ml-2"
+            variant="outline-primary"
+            size="sm"
+            onClick={() => this.addToFavoriteList(movie._id)}
+          >
+            Add
+          </Button>
         </Card.Body>
-        <Button variant="danger" onClick={() => onMovieClick(movie)}>
-          Open
-        </Button>
       </Card>
     );
   }
