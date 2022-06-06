@@ -11,33 +11,47 @@ import { Link } from "react-router-dom";
 
 export class DirectorView extends React.Component {
   render() {
-    const { movie, director, onBackClick } = this.props;
-    console.log("director");
+    const { movie, onBackClick } = this.props;
+    //console.log(this.props);
     return (
-      <Card id="director-view" style={{ marginTop: "10rem" }}>
-        <Card.Body>
-          <Row>
-            <Col>
-              <Card.Img variant="top" src={movie.ImagePath} />
-            </Col>
-            <Col>
-              <Card.Title className="director-Name">{director.Name}</Card.Title>
-              <Card.Text id="director-bio" className="director-bio">
-                {director.Bio}
-              </Card.Text>
-              <Card.Text id="director-movies" className="movie-director">
-                Movies: {director.Movies.Title}
-              </Card.Text>
-              <Button
-                variant="dark"
-                onClick={() => {
-                  onBackClick(null);
-                }}
-              >
-                Back
-              </Button>
-            </Col>
-          </Row>
+      <Card>
+        <Card.Body className="director-view">
+          <Col className="d-sm-flex justify-content-between justify-content-xl-start">
+            <Card.Text className="align-self-center label titles h3">
+              Name:
+            </Card.Text>
+            <span className="align-self-center label titles h3">
+              {movie.Name}
+            </span>
+          </Col>
+          <Col className="d-sm-flex justify-content-between justify-content-xl-start">
+            <Card.Text className="align-self-center label titles h3">
+              Bio:
+            </Card.Text>
+            <span className="movie-director-bio card-text ml-3 ">
+              {movie.Bio}
+            </span>
+          </Col>
+          <Col className="d-sm-flex justify-content-between justify-content-xl-start">
+            <Card.Text className="align-self-center label titles h3">
+              Born:
+            </Card.Text>
+            <span className="movie-director-birth titles ml-3 h1">
+              {movie.Birth}
+            </span>
+          </Col>
+          <br></br>
+          <br></br>
+
+          <Button
+            className="custom-btn"
+            type="submit"
+            onClick={() => {
+              onBackClick(null);
+            }}
+          >
+            Go Back
+          </Button>
         </Card.Body>
       </Card>
     );
@@ -46,12 +60,9 @@ export class DirectorView extends React.Component {
 
 DirectorView.propTypes = {
   director: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
+    Name: PropTypes.string.isRequired,
     Bio: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,
-    Movie: PropTypes.shape({
-      Title: PropTypes.string,
-    }),
   }).isRequired,
 
   onBackClick: PropTypes.func.isRequired,

@@ -23,7 +23,7 @@ export function NavBar() {
 
   return (
     <Navbar expand="md">
-      <Navbar.Brand as={Link} to={"/"}>
+      <Navbar.Brand as={Link} to={"/users"}>
         My-Flix
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
@@ -39,14 +39,6 @@ export function NavBar() {
             >
               Logout
             </Nav.Link>
-            <NavDropdown title="My Account" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to={`/users/${user}`}>
-                Profile
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to={`/`}>
-                Favorite list
-              </NavDropdown.Item>
-            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       )}

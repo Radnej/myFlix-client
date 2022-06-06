@@ -53,7 +53,11 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch((e) => {
-        console.log("no such user");
+        console.log(e);
+        alert(
+          "you're not already registered or you have deleted your profile! Please register"
+        );
+        window.open("/register", "_self");
       });
   };
 
@@ -63,22 +67,19 @@ export function LoginView(props) {
   };
 
   return (
-    <Row>
-      <Col></Col>
-      <Col>
-        <Card
-          style={{
-            marginTop: 200,
-            marginBottom: 100,
-            width: "30rem",
-            height: "20rem",
-          }}
-        >
-          <Card.Body>
-            <Card.Title style={{ textAlign: "center", fontSize: "" }} />
-            <Form>
-              <Form.Group>
-                <Form.Label> Username: </Form.Label>
+    <Card>
+      <Card.Body>
+        <Card.Title style={{ textAlign: "center", fontSize: "" }} />
+        <Row className="justify-content-md-center">
+          <Col></Col>
+          <Col md={6}>
+            <h1>Sign in to your account</h1>
+            <Form className="register-form">
+              <Form.Group className="mb-3" controlId="formEmail">
+                <Form.Label className="label titles h3 align-self-center">
+                  {" "}
+                  Username:{" "}
+                </Form.Label>
                 <Form.Control
                   type="text"
                   value={Username}
@@ -87,8 +88,11 @@ export function LoginView(props) {
                   placeholder="Enter your username"
                 />
               </Form.Group>
-              <Form.Group>
-                <Form.Label> Password: </Form.Label>
+              <Form.Group className="mb-3" controlId="formPassword">
+                <Form.Label className="label titles h3 align-self-center">
+                  {" "}
+                  Password:{" "}
+                </Form.Label>
                 <Form.Control
                   type="password"
                   value={Password}
@@ -98,26 +102,34 @@ export function LoginView(props) {
                 />
               </Form.Group>
               <Button
+                variant="primary"
+                className="custom-btn"
                 type="submit"
-                style={{ marginTop: 20, marginRight: 5 }}
+                // style={{ marginTop: 20, marginRight: 5 }}
                 onClick={handleSubmit}
               >
-                Submit
+                Sign in
               </Button>
-              <Button
-                variant="secondary"
-                style={{ marginTop: 20 }}
-                type="submit"
-                onClick={handleRegister}
-              >
-                Register Here
-              </Button>
+              <br></br>
+              <br></br>
+              <Row className="d-flex justify-content-center">
+                <p className="m-2">Don't have an account?</p>
+                <Button
+                  variant="primary"
+                  className="custom-btn"
+                  //style={{ marginTop: 20 }}
+                  type="submit"
+                  onClick={handleRegister}
+                >
+                  Sign up
+                </Button>
+              </Row>
             </Form>
-          </Card.Body>
-        </Card>
-      </Col>
-      <Col></Col>
-    </Row>
+          </Col>
+          <Col></Col>
+        </Row>
+      </Card.Body>
+    </Card>
   );
 }
 
