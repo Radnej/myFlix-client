@@ -8,8 +8,9 @@ export class MovieView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      favoriteMovies: [],
+      FavoriteMovies: [],
     };
+
     this.addFav = this.addFav.bind(this);
     this.removeFav = this.removeFav.bind(this);
   }
@@ -23,7 +24,7 @@ export class MovieView extends React.Component {
       .then((response) => {
         //assign the result to the state
         this.setState({
-          favoriteMovies: response.data.favoriteMovies,
+          FavoriteMovies: response.data.FavoriteMovies,
         });
       })
       .catch((e) => console.log(e));
@@ -38,14 +39,13 @@ export class MovieView extends React.Component {
     {
       const user = localStorage.getItem("user");
       const token = localStorage.getItem("token");
-      const id = this.props.MovieID;
       //prevent adding duplicate movies
-      let userFavorites = this.state.favoriteMovies;
-      let isFav = userFavorites.includes(id);
+      let userFavorites = this.state.FavoriteMovies;
+      let isFav = userFavorites.includes(this.props.movie._id);
       if (!isFav) {
         axios
           .post(
-            `https://my-flix-220508.herokuapp.com/users/${Username}/movies/${MovieID}`,
+            `https://my-flix-220508.herokuapp.com/users/${user}/movies/${this.props.movie._id}`,
             {},
 
             { headers: { Authorization: `Bearer ${token}` } }
@@ -71,11 +71,10 @@ export class MovieView extends React.Component {
     {
       const user = localStorage.getItem("user");
       const token = localStorage.getItem("token");
-      const id = this.props.MovieID;
 
       axios
         .delete(
-          `https://my-flix-220508.herokuapp.com/users/${Username}/movies/${MovieID}`,
+          `https://my-flix-220508.herokuapp.com/users/${user}/movies/${this.props.movie._id}`,
 
           { headers: { Authorization: `Bearer ${token}` } },
           {}
@@ -92,10 +91,11 @@ export class MovieView extends React.Component {
   }
   render() {
     const { movie, onBackClick } = this.props;
+
     let movieId = this.props.movie._id;
-    let userFav = this.state.favoriteMovies;
+    let userFav = this.state.FavoriteMovies;
+    console.log(this.state);
     let isFav = userFav.includes(movieId);
-    console.log();
 
     return (
       <Card>
@@ -192,11 +192,6 @@ MovieView.propTypes = {
       Name: PropTypes.string.isRequired,
     }).isRequired,
     Description: PropTypes.string.isRequired,
-    releaseYear: PropTypes.arrayOf(PropTypes.number).isRequired,
-    //Actors: PropTypes.arrayOf(
-    // PropTypes.shape({
-    //  Name: PropTypes.string,
-    // })
 
     ImagePath: PropTypes.string.isRequired,
   }).isRequired,
