@@ -23,7 +23,7 @@ export function NavBar() {
 
   return (
     <Navbar expand="md">
-      <Navbar.Brand as={Link} to={"/users"}>
+      <Navbar.Brand as={Link} to={"/users/:Username"}>
         My-Flix
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
@@ -31,7 +31,7 @@ export function NavBar() {
       {isAuth() && (
         <Navbar.Collapse id="basic-navbar-nav navbar-dark">
           <Nav className="me-auto">
-            <Nav.Link to={`/`}>Hi, {user}</Nav.Link>
+            <Nav.Link to={`/users/${user}`}>Hi, {user}</Nav.Link>
             <Nav.Link
               onClick={() => {
                 onLoggedOut();
