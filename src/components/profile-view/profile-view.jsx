@@ -23,10 +23,6 @@ export function ProfileView({ movies }) {
   const [favouriteMovies, setFavouriteMovies] = useState([]);
   const [show, setShow] = useState(false); // setting the state for the deleteUser modal
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
   const getUser = () => {
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
@@ -48,10 +44,10 @@ export function ProfileView({ movies }) {
   // Update users info
   const updateUser = () => {
     let token = localStorage.getItem("token");
-    let username = localStorage.getItem("user");
+    let user = localStorage.getItem("user");
     axios
       .put(
-        `https://my-flix-220508.herokuapp.com/users/${Username}`,
+        `https://my-flix-220508.herokuapp.com/users/${user}`,
         {
           Username: username,
           Email: email, //Email is a variable which holds the email
@@ -78,9 +74,9 @@ export function ProfileView({ movies }) {
   const deleteUser = () => {
     setShowModal(false);
     let token = localStorage.getItem("token");
-    let username = localStorage.getItem("user");
+    let user = localStorage.getItem("user");
     axios
-      .delete(`https://my-flix-220508.herokuapp.com/users/${Username}`, {
+      .delete(`https://my-flix-220508.herokuapp.com/users/${user}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -205,11 +201,7 @@ export function ProfileView({ movies }) {
                   </Container>
                 </Form.Group>
 
-                <Button
-                  variant="primary custom-btn"
-                  onClick={updateUser}
-                  type="submit"
-                >
+                <Button variant="primary custom-btn" onClick={updateUser}>
                   Update your profile
                 </Button>
 
@@ -217,7 +209,6 @@ export function ProfileView({ movies }) {
                 <Button
                   className="custom-btn-delete m-1"
                   variant="primary"
-                  type="link"
                   onClick={handleShow}
                 >
                   Delete your profile
