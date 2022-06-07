@@ -1,5 +1,5 @@
 @import "https://fonts.googleapis.com/css2?family=Anek+Tamil&display=swap";
-@import "https://fonts.googleapis.com/css2?family=Lobster&display=swap";
+@import "https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,200&display=swap";
 .card-body, .container .card-custom {
   background-color: #110307 !important;
 }
@@ -9,12 +9,12 @@
 }
 
 .navbar-brand, h1, .nav-link, .titles, .titles-expand {
-  color: #cf6628 !important;
+  color: #cf6dde !important;
   font-family: Lobster, cursive !important;
 }
 
 .navbar-brand .custom-icon, h1 .custom-icon, .nav-link .custom-icon, .titles .custom-icon, .titles-expand .custom-icon {
-  color: #dffd71 !important;
+  color: #b447cc !important;
 }
 
 .titles-expand:hover {
@@ -46,25 +46,25 @@ p, .card-text {
 
 .custom-btn {
   color: #141414 !important;
-  background-color: #75ca60 !important;
-  border-color: #75ca60 !important;
+  background-color: #f8d6fa !important;
+  border-color: #f8d6fa !important;
 }
 
 .custom-btn:hover {
-  background-color: #58aa43 !important;
+  background-color: #cf6dde !important;
 }
 
 .custom-btn-delete {
-  background-color: #972d2d !important;
-  border-color: #972d2d !important;
+  background-color: #c10088 !important;
+  border-color: #c10088 !important;
 }
 
 .custom-btn-delete:hover {
-  background-color: #641212 !important;
+  background-color: #7e1d53 !important;
 }
 
 .card {
-  border: 2px solid #dffd71 !important;
+  border: 2px solid #b447cc !important;
 }
 
 /*# sourceMappingURL=index.ce1d6491.css.map */
