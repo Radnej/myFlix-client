@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { MovieCard } from "../movie-card/movie-card";
 import PropTypes from "prop-types";
 import {
   Form,
@@ -13,7 +13,6 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { MovieView } from "../movie-card/movie-card";
 
 export function ProfileView({ movies }) {
   const [username, setUsername] = useState("");
@@ -24,6 +23,7 @@ export function ProfileView({ movies }) {
   const [show, setShow] = useState(false); // setting the state for the deleteUser modal
 
   const getUser = () => {
+    //console.log("user11");
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
     axios
@@ -33,13 +33,18 @@ export function ProfileView({ movies }) {
       .then((response) => {
         setUsername(response.data.Username);
         setEmail(response.data.Email);
-        setFavoriteMovies(response.data.FavouriteMovies);
+        setFavoriteMovies(response.data.FavoriteMovies);
         console.log(response.data);
       })
       .catch((e) => {
-        console.log("user");
+        console.log(e);
       });
   };
+
+  useEffect(() => {
+    // console.log("I");
+    getUser();
+  }, []);
 
   function User() {
     const [favoriteMovies, setFavoriteMovies] = useState([]);
