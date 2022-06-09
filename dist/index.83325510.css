@@ -10,12 +10,12 @@
   background-color: #202020 !important;
 }
 
-.navbar-brand, h1, .nav-link, .titles, .titles-expand {
+.navbar-brand, h1, .link, .titles, .titles-expand {
   color: #cf6dde !important;
   font-family: Lobster, cursive !important;
 }
 
-.navbar-brand .custom-icon, h1 .custom-icon, .nav-link .custom-icon, .titles .custom-icon, .titles-expand .custom-icon {
+.navbar-brand .custom-icon, h1 .custom-icon, .link .custom-icon, .titles .custom-icon, .titles-expand .custom-icon {
   color: #b447cc !important;
 }
 

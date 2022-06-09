@@ -23,22 +23,22 @@ export function NavBar() {
 
   return (
     <Navbar expand="md">
-      <Navbar.Brand as={Link} to={"/users/:Username"}>
+      <Navbar.Brand as={Link} to={"/"}>
         My-Flix
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
 
       {isAuth() && (
         <Navbar.Collapse id="basic-navbar-nav navbar-dark">
-          <Nav className="me-auto">
-            <Nav.Link to={`/users/${user}`}>Hi, {user}</Nav.Link>
-            <Nav.Link
+          <Nav className="h1 titles">
+            <Link to={`/users/${user}`}>Hi, {user}</Link>{" "}
+            <Link
               onClick={() => {
                 onLoggedOut();
               }}
             >
               Logout
-            </Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       )}

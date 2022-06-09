@@ -10,6 +10,7 @@ export class MovieView extends React.Component {
     this.state = {
       FavoriteMovies: [],
     };
+    this.isFav;
 
     this.addFav = this.addFav.bind(this);
     this.removeFav = this.removeFav.bind(this);
@@ -41,7 +42,7 @@ export class MovieView extends React.Component {
       const token = localStorage.getItem("token");
       //prevent adding duplicate movies
       let userFavorites = this.state.FavoriteMovies;
-      let isFav = userFavorites.includes(this.props.movie._id);
+      isFav = userFavorites.includes(this.props.movie._id);
       if (!isFav) {
         axios
           .post(
@@ -55,14 +56,14 @@ export class MovieView extends React.Component {
             alert(
               `${this.props.movie.Title} has been added to your list of favorites`
             );
-            window.open(`/movies/${id}`, "_self");
+            // window.open(`/movies/${id}`, "_self");
           })
           .catch((e) => console.log(e));
       } else if (isFav) {
         alert(
           `${this.props.movie.Title} is already in your list of favorite movies!`
         );
-        window.open(`/movies/${id}`, "_self");
+        // window.open(`/movies/${id}`, "_self");
       }
     }
   }
@@ -81,10 +82,11 @@ export class MovieView extends React.Component {
         )
         .then((response) => {
           console.log(response);
+          isFav = false;
           alert(
             `${this.props.movie.Title} has been deleted from your list of favorites`
           );
-          window.open(`/movies/${id}`, "_self");
+          // window.open(`/movies/${id}`, "_self");
         })
         .catch((e) => console.log(e));
     }
