@@ -39,7 +39,7 @@ export function RegistrationView(props) {
       setPasswordErr("Password Required");
       isReq = false;
     } else if (Password.length < 6) {
-      setPassword("Password must be 6 characters long");
+      setPasswordErr("Password must be 6 characters long");
       isReq = false;
     } else {
       setPasswordErr("");
@@ -48,7 +48,7 @@ export function RegistrationView(props) {
       setEmailErr("Email Required");
       isReq = false;
     } else if (Email.indexOf("@") === -1) {
-      setEmail("Email must be a valid email address");
+      setEmailErr("Email must be a valid email address");
       isReq = false;
     } else {
       setEmailErr("");
