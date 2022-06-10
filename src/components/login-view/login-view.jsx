@@ -16,29 +16,29 @@ export function LoginView(props) {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
 
-  // //declare hook for each input
-  // const [UsernameErr, setUsernameErr] = useState("");
-  // const [PasswordErr, setPasswordErr] = useState("");
+  //declare hook for each input
+  const [UsernameErr, setUsernameErr] = useState("");
+  const [PasswordErr, setPasswordErr] = useState("");
 
-  // //validate user inputs
-  // const validate = () => {
-  //   let isReq = true;
-  //   if (!Username) {
-  //     setUsernameErr("Username Required");
-  //     isReq = false;
-  //   } else if (Username.length < 5) {
-  //     setUsernameErr("Username must be 5 characters long");
-  //     isReq = false;
-  //   }
-  //   if (!Password) {
-  //     setPasswordErr("Password Required");
-  //     isReq = false;
-  //   } else if (Password.length < 6) {
-  //     setPassword("Password must be 6 characters long");
-  //     isReq = false;
-  //   }
-  //   return isReq;
-  // };
+  //validate user inputs
+  const validate = () => {
+    let isReq = true;
+    if (!Username) {
+      setUsernameErr("Username Required");
+      isReq = false;
+    } else if (Username.length < 5) {
+      setUsernameErr("Username must be 5 characters long");
+      isReq = false;
+    }
+    if (!Password) {
+      setPasswordErr("Password Required");
+      isReq = false;
+    } else if (Password.length < 6) {
+      setPassword("Password must be 6 characters long");
+      isReq = false;
+    }
+    return isReq;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -134,6 +134,6 @@ export function LoginView(props) {
 }
 
 LoginView.propTypes = {
-  onRegister: PropTypes.func.isRequired,
+  // onRegister: PropTypes.func.isRequired,
   onLoggedIn: PropTypes.func.isRequired,
 };

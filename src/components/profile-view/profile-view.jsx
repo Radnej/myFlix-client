@@ -33,12 +33,9 @@ export function ProfileView({ movies }) {
       .then((response) => {
         setUsername(response.data.Username);
         setEmail(response.data.Email);
-<<<<<<< Updated upstream
         setFavoriteMovies(response.data.FavoriteMovies);
-=======
         setFavouriteMovies(response.data.FavouriteMovies);
         setBirthday(response.data.Birthday.substring(0, 10));
->>>>>>> Stashed changes
         console.log(response.data);
       })
       .catch((e) => {

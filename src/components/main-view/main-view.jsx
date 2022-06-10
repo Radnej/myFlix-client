@@ -196,7 +196,7 @@ export class MainView extends React.Component {
               return (
                 <Col md={8}>
                   <DirectorView
-                    movie={
+                    director={
                       movies.find((m) => m.Director.Name === match.params.Name)
                         .Director
                     }
