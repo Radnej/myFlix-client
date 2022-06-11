@@ -10,35 +10,36 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import CardGroup from "react-bootstrap/CardGroup";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 
 //login for user - taking username and password
 export function LoginView(props) {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
 
-  //declare hook for each input
-  const [UsernameErr, setUsernameErr] = useState("");
-  const [PasswordErr, setPasswordErr] = useState("");
+  // //declare hook for each input
+  // const [UsernameErr, setUsernameErr] = useState("");
+  // const [PasswordErr, setPasswordErr] = useState("");
 
-  //validate user inputs
-  const validate = () => {
-    let isReq = true;
-    if (!Username) {
-      setUsernameErr("Username Required");
-      isReq = false;
-    } else if (Username.length < 5) {
-      setUsernameErr("Username must be 5 characters long");
-      isReq = false;
-    }
-    if (!Password) {
-      setPasswordErr("Password Required");
-      isReq = false;
-    } else if (Password.length < 6) {
-      setPassword("Password must be 6 characters long");
-      isReq = false;
-    }
-    return isReq;
-  };
+  // //validate user inputs
+  // const validate = () => {
+  //   let isReq = true;
+  //   if (!Username) {
+  //     setUsernameErr("Username Required");
+  //     isReq = false;
+  //   } else if (Username.length < 5) {
+  //     setUsernameErr("Username must be 5 characters long");
+  //     isReq = false;
+  //   }
+  //   if (!Password) {
+  //     setPasswordErr("Password Required");
+  //     isReq = false;
+  //   } else if (Password.length < 6) {
+  //     setPassword("Password must be 6 characters long");
+  //     isReq = false;
+  //   }
+  //   return isReq;
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,10 +62,10 @@ export function LoginView(props) {
       });
   };
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    props.onRegister(true);
-  };
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   props.onRegister(true);
+  // };
 
   return (
     <Card>
@@ -114,15 +115,13 @@ export function LoginView(props) {
               <br></br>
               <Row className="d-flex justify-content-center">
                 <p className="m-2">Don't have an account?</p>
-                <Button
-                  variant="primary"
-                  className="custom-btn"
-                  //style={{ marginTop: 20 }}
-                  type="submit"
-                  onClick={handleRegister}
+
+                <Link
+                  className="movie-director titles-expand ml-3 h4"
+                  to={`/register`}
                 >
                   Sign up
-                </Button>
+                </Link>
               </Row>
             </Form>
           </Col>

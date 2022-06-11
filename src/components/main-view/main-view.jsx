@@ -99,23 +99,23 @@ export class MainView extends React.Component {
       this.state;
     //console.log(this.props);
 
-    //forcing a registration form for testing
-    if (registered) {
-      return <RegistrationView onRegister={(bool) => this.onRegister(bool)} />;
-    }
+    // //forcing a registration form for testing
+    // if (registered) {
+    //   return <RegistrationView onRegister={(bool) => this.onRegister(bool)} />;
+    // }
 
-    //if user is no logged in - force a login form
-    if (!user) {
-      return (
-        <LoginView
-          onLoggedIn={(User) => this.onLoggedIn(User)}
-          onRegister={(bool) => this.onRegister(bool)}
-        />
-      );
-    }
+    // //if user is no logged in - force a login form
+    // if (!user) {
+    //   return (
+    //     <LoginView
+    //       onLoggedIn={(User) => this.onLoggedIn(User)}
+    //       onRegister={(bool) => this.onRegister(bool)}
+    //     />
+    //   );
+    // }
 
-    // Before the movies have been loaded
-    if (movies.length === 0) return <div className="main-view" />;
+    // // Before the movies have been loaded
+    // if (movies.length === 0) return <div className="main-view" />;
 
     return (
       <Router>
@@ -221,7 +221,7 @@ export class MainView extends React.Component {
               return (
                 <Col md={8}>
                   <ProfileView
-                    history={history}
+                    // history={history}
                     movies={movies}
                     user={user}
                     onUserUpdated={(user) => this.handleUserUpdate(user)}

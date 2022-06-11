@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -45,3 +46,12 @@ export function NavBar() {
     </Navbar>
   );
 }
+
+NavBar.propTypes = {
+  userData: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    birthday: PropTypes.string.isRequired,
+  }).isRequired,
+};

@@ -35,6 +35,7 @@ export function ProfileView({ movies }) {
         setEmail(response.data.Email);
         setFavoriteMovies(response.data.FavoriteMovies);
         setFavouriteMovies(response.data.FavouriteMovies);
+        // setFavouriteMovies(response.data.FavouriteMovies);
         setBirthday(response.data.Birthday.substring(0, 10));
         console.log(response.data);
       })
@@ -60,6 +61,18 @@ export function ProfileView({ movies }) {
     );
   }
 
+  //   function User() {
+  //     const [favoriteMovies, setFavoriteMovies] = useState([]);
+  //     useEffect(() => {
+  //       console.log(favoriteMovies);
+  //     });
+  //     return (
+  //       <div>
+  //         <p>You clicked {favoriteMovies} times</p>
+  //       </div>
+  //     );
+  //   }
+
   // Update users info
   const updateUser = () => {
     let token = localStorage.getItem("token");
@@ -81,8 +94,9 @@ export function ProfileView({ movies }) {
       )
       .then((response) => {
         alert("Your profile has been updated");
-        localStorage.setItem("user", response.data.Username),
-          console.log(response.data);
+        localStorage.setItem("user", response.data.Username);
+        console.log(response.data);
+        window.open("/users/${response.data.Username}", "_self");
       })
       .catch((e) => {
         console.log("Error");
@@ -91,7 +105,7 @@ export function ProfileView({ movies }) {
 
   // Delete user
   const deleteUser = () => {
-    setShowModal(false);
+    setShow(false);
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
     axios
@@ -263,3 +277,19 @@ export function ProfileView({ movies }) {
     </Container>
   );
 }
+
+ProfileView.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      ImagePath: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  userData: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string.isRequired,
+  }).isRequired,
+  onUserUpdated: PropTypes.func.isRequired,
+};
