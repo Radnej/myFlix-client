@@ -48,10 +48,7 @@ export function NavBar() {
 }
 
 NavBar.propTypes = {
-  userData: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    birthday: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
   }).isRequired,
 };

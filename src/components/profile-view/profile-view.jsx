@@ -279,17 +279,14 @@ export function ProfileView({ movies }) {
 }
 
 ProfileView.propTypes = {
-  movies: PropTypes.arrayOf(
+  movies: PropTypes.array.isRequiredOf(
     PropTypes.shape({
       Title: PropTypes.string.isRequired,
       ImagePath: PropTypes.string.isRequired,
     })
   ).isRequired,
-  userData: PropTypes.shape({
+  user: PropTypes.shape({
     Username: PropTypes.string.isRequired,
-    Password: PropTypes.string.isRequired,
-    Email: PropTypes.string.isRequired,
-    Birthday: PropTypes.string.isRequired,
   }).isRequired,
   onUserUpdated: PropTypes.func.isRequired,
 };

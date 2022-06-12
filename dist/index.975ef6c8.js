@@ -45804,11 +45804,8 @@ function NavBar() {
 }
 _c = NavBar;
 NavBar.propTypes = {
-    userData: _propTypesDefault.default.shape({
-        username: _propTypesDefault.default.string.isRequired,
-        password: _propTypesDefault.default.string.isRequired,
-        email: _propTypesDefault.default.string.isRequired,
-        birthday: _propTypesDefault.default.string.isRequired
+    user: _propTypesDefault.default.shape({
+        Username: _propTypesDefault.default.string.isRequired
     }).isRequired
 };
 var _c;
@@ -46549,15 +46546,12 @@ function ProfileView({ movies  }) {
 _s(ProfileView, "XEIAa+nFCRkhRWEho2yXVUYuQGo=");
 _c = ProfileView;
 ProfileView.propTypes = {
-    movies: _propTypesDefault.default.arrayOf(_propTypesDefault.default.shape({
+    movies: _propTypesDefault.default.array.isRequiredOf(_propTypesDefault.default.shape({
         Title: _propTypesDefault.default.string.isRequired,
         ImagePath: _propTypesDefault.default.string.isRequired
     })).isRequired,
-    userData: _propTypesDefault.default.shape({
-        Username: _propTypesDefault.default.string.isRequired,
-        Password: _propTypesDefault.default.string.isRequired,
-        Email: _propTypesDefault.default.string.isRequired,
-        Birthday: _propTypesDefault.default.string.isRequired
+    user: _propTypesDefault.default.shape({
+        Username: _propTypesDefault.default.string.isRequired
     }).isRequired,
     onUserUpdated: _propTypesDefault.default.func.isRequired
 };
