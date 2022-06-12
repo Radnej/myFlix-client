@@ -45804,9 +45804,7 @@ function NavBar() {
 }
 _c = NavBar;
 NavBar.propTypes = {
-    user: _propTypesDefault.default.shape({
-        Username: _propTypesDefault.default.string.isRequired
-    }).isRequired
+    user: _propTypesDefault.default.string.isRequired
 };
 var _c;
 $RefreshReg$(_c, "NavBar");
@@ -46546,13 +46544,8 @@ function ProfileView({ movies  }) {
 _s(ProfileView, "XEIAa+nFCRkhRWEho2yXVUYuQGo=");
 _c = ProfileView;
 ProfileView.propTypes = {
-    movies: _propTypesDefault.default.array.isRequiredOf(_propTypesDefault.default.shape({
-        Title: _propTypesDefault.default.string.isRequired,
-        ImagePath: _propTypesDefault.default.string.isRequired
-    })).isRequired,
-    user: _propTypesDefault.default.shape({
-        Username: _propTypesDefault.default.string.isRequired
-    }).isRequired,
+    movies: _propTypesDefault.default.array.isRequire,
+    user: _propTypesDefault.default.string.isRequired,
     onUserUpdated: _propTypesDefault.default.func.isRequired
 };
 var _c;
