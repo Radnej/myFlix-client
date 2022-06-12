@@ -9,7 +9,9 @@ export class MovieView extends React.Component {
     super(props);
     this.state = {
       FavoriteMovies: [],
+      isFav: null,
     };
+    // this.isFav;
 
     this.addFav = this.addFav.bind(this);
     this.removeFav = this.removeFav.bind(this);
@@ -25,6 +27,7 @@ export class MovieView extends React.Component {
         //assign the result to the state
         this.setState({
           FavoriteMovies: response.data.FavoriteMovies,
+          isFav: response.data.FavoriteMovies.includes(this.props.movie._id),
         });
       })
       .catch((e) => console.log(e));
@@ -41,8 +44,13 @@ export class MovieView extends React.Component {
       const token = localStorage.getItem("token");
       //prevent adding duplicate movies
       let userFavorites = this.state.FavoriteMovies;
-      let isFav = userFavorites.includes(this.props.movie._id);
-      if (!isFav) {
+
+      this.setState({
+        isFav: userFavorites.includes(this.props.movie._id),
+      });
+
+      // this.state.isFav = userFavorites.includes(this.props.movie._id);
+      if (!this.state.isFav) {
         axios
           .post(
             `https://my-flix-220508.herokuapp.com/users/${user}/movies/${this.props.movie._id}`,
@@ -51,18 +59,23 @@ export class MovieView extends React.Component {
             { headers: { Authorization: `Bearer ${token}` } }
           )
           .then((response) => {
+            console.log("Set True");
+            // this.state.isFav = true;
+            this.setState({
+              isFav: true,
+            });
             console.log(response);
             alert(
               `${this.props.movie.Title} has been added to your list of favorites`
             );
-            window.open(`/movies/${id}`, "_self");
+            // window.open(`/movies/${id}`, "_self");
           })
           .catch((e) => console.log(e));
-      } else if (isFav) {
+      } else if (this.state.isFav) {
         alert(
           `${this.props.movie.Title} is already in your list of favorite movies!`
         );
-        window.open(`/movies/${id}`, "_self");
+        // window.open(`/movies/${id}`, "_self");
       }
     }
   }
@@ -81,10 +94,13 @@ export class MovieView extends React.Component {
         )
         .then((response) => {
           console.log(response);
+          this.setState({
+            isFav: false,
+          });
           alert(
             `${this.props.movie.Title} has been deleted from your list of favorites`
           );
-          window.open(`/movies/${id}`, "_self");
+          // window.open(`/movies/${id}`, "_self");
         })
         .catch((e) => console.log(e));
     }
@@ -95,7 +111,7 @@ export class MovieView extends React.Component {
     let movieId = this.props.movie._id;
     let userFav = this.state.FavoriteMovies;
     console.log(this.state);
-    let isFav = userFav.includes(movieId);
+    // this.state.isFav = userFav.includes(movieId);
 
     return (
       <Card>
@@ -158,16 +174,16 @@ export class MovieView extends React.Component {
             </Link>
           </Col>
 
-          {!isFav && (
+          {!this.state.isFav && (
             <Button
               variant="primary"
               className="custom-btn"
               onClick={this.addFav}
             >
-              Add to favorites
+              {this.state.isFav} Add to favorites
             </Button>
           )}
-          {isFav && (
+          {this.state.isFav && (
             <Button
               variant="primary"
               className="custom-btn"

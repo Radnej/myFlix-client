@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./profile-view.scss";
+import { MovieCard } from "../movie-card/movie-card";
 import PropTypes from "prop-types";
 import {
   Form,
@@ -13,17 +13,17 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { MovieCard } from "../movie-card/movie-card";
 
 export function ProfileView({ movies }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-  const [favouriteMovies, setFavouriteMovies] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [show, setShow] = useState(false); // setting the state for the deleteUser modal
 
   const getUser = () => {
+    //console.log("user11");
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
     axios
@@ -33,13 +33,45 @@ export function ProfileView({ movies }) {
       .then((response) => {
         setUsername(response.data.Username);
         setEmail(response.data.Email);
+        setFavoriteMovies(response.data.FavoriteMovies);
         setFavouriteMovies(response.data.FavouriteMovies);
+        // setFavouriteMovies(response.data.FavouriteMovies);
+        setBirthday(response.data.Birthday.substring(0, 10));
         console.log(response.data);
       })
       .catch((e) => {
-        console.log("user");
+        console.log(e);
       });
   };
+
+  useEffect(() => {
+    // console.log("I");
+    getUser();
+  }, []);
+
+  function User() {
+    const [favoriteMovies, setFavoriteMovies] = useState([]);
+    useEffect(() => {
+      console.log(favoriteMovies);
+    });
+    return (
+      <div>
+        <p>You clicked {favoriteMovies} times</p>
+      </div>
+    );
+  }
+
+  //   function User() {
+  //     const [favoriteMovies, setFavoriteMovies] = useState([]);
+  //     useEffect(() => {
+  //       console.log(favoriteMovies);
+  //     });
+  //     return (
+  //       <div>
+  //         <p>You clicked {favoriteMovies} times</p>
+  //       </div>
+  //     );
+  //   }
 
   // Update users info
   const updateUser = () => {
@@ -62,8 +94,9 @@ export function ProfileView({ movies }) {
       )
       .then((response) => {
         alert("Your profile has been updated");
-        localStorage.setItem("user", response.data.Username),
-          console.log(response.data);
+        localStorage.setItem("user", response.data.Username);
+        console.log(response.data);
+        window.open("/users/${response.data.Username}", "_self");
       })
       .catch((e) => {
         console.log("Error");
@@ -72,7 +105,7 @@ export function ProfileView({ movies }) {
 
   // Delete user
   const deleteUser = () => {
-    setShowModal(false);
+    setShow(false);
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
     axios
@@ -93,15 +126,15 @@ export function ProfileView({ movies }) {
       });
   };
 
-  const renderFavourits = () => {
+  const renderFavorits = () => {
     console.log(movies);
     if (movies.length + 0) {
       return (
         <Row className="justify-content-md-center">
-          {favouriteMovies.length === 0 ? (
+          {favoriteMovies.length === 0 ? (
             <h5></h5>
           ) : (
-            favouriteMovies.map((movieId, i) => (
+            favoriteMovies.map((movieId, i) => (
               <Col md={6} lg={4}>
                 <MovieCard
                   key={`${i}-${movieId}`}
@@ -236,11 +269,24 @@ export function ProfileView({ movies }) {
               to add some
             </p>
           </div>
-
+          /
           {/* Calling the function that renders the users favourite movies on the profile page */}
-          {renderFavourits()}
+          {renderFavorits()}
         </Card.Body>
       </Card>
     </Container>
   );
 }
+
+ProfileView.propTypes = {
+  movies: PropTypes.array.isRequiredOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      ImagePath: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  user: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+  }).isRequired,
+  onUserUpdated: PropTypes.func.isRequired,
+};
