@@ -279,7 +279,7 @@ export function ProfileView({ movies }) {
 }
 
 ProfileView.propTypes = {
-  movies: PropTypes.array.isRequire,
+  movies: PropTypes.array.isRequired,
   user: PropTypes.string.isRequired,
   onUserUpdated: PropTypes.func.isRequired,
 };
