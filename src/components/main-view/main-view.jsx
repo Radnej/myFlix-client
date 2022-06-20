@@ -1,8 +1,12 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 
 //Adding a State-Based Router
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
+import { setMovies, getMovies } from "../../actions/actions";
+import MoviesList from "../movies-list/movies-list";
 
 //add react-bootstrap
 import Button from "react-bootstrap/Button";
@@ -15,12 +19,9 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 import { RegistrationView } from "../registration-view/registration-view";
 import { LoginView } from "../login-view/login-view";
-import { MovieCard } from "../movie-card/movie-card";
+// import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { NavBar } from "../navbar-view/navbar-view";
-import { ProfileView } from "../profile-view/profile-view";
-import { Redirect } from "react-router-dom";
-import { setMovies } from "../../actions/actions";
 import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
 import "../../index.scss";
@@ -29,15 +30,16 @@ export class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: [],
-      selectedMovie: null,
-      registered: null,
+      // movies: [],
+      // selectedMovie: null,
+      // registered: null,
       user: null,
     };
   }
 
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
+    console.log(accessToken);
     if (accessToken !== null) {
       this.setState({
         user: localStorage.getItem("user"),
@@ -53,20 +55,21 @@ export class MainView extends React.Component {
       })
       .then((response) => {
         // Assign the result to the state
-        this.setState({
-          movies: response.data,
-        });
+        // this.setState({
+        //   movies: response.data,
+        this.props.setMovies(response.data);
+        // });
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  setSelectedMovie(newSelectedMovie) {
-    this.setState({
-      selectedMovie: newSelectedMovie,
-    });
-  }
+  // setSelectedMovie(newSelectedMovie) {
+  //   this.setState({
+  //     selectedMovie: newSelectedMovie,
+  //   });
+  // }
 
   //when user is verified set state to current user
   onLoggedIn(authData) {
@@ -95,8 +98,8 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, selectedMovie, users, user, registered, director } =
-      this.state;
+    const { movies } = this.props;
+    let { user } = this.state;
     //console.log(this.props);
 
     // //forcing a registration form for testing
@@ -132,11 +135,12 @@ export class MainView extends React.Component {
                   </Col>
                 );
               if (movies.length === 0) return <div className="main-view" />;
-              return movies.map((m) => (
-                <Col md={3} key={m._id}>
-                  <MovieCard movie={m} />
-                </Col>
-              ));
+              return <MoviesList movies={movies} />;
+              // return movies.map((m) => (
+              //   <Col md={3} key={m._id}>
+              //     <MovieCard movie={m} />
+              //   </Col>
+              // ));
             }}
           />
           <Route
@@ -260,4 +264,18 @@ export class MainView extends React.Component {
   }
 }
 
-export default MainView;
+let mapStateToProps = (state) => {
+  return { movies: state.movies };
+};
+export default connect(mapStateToProps, { getMovies })(MainView);
+
+// MainView.propTypes = {
+//   setMovies: PropTypes.func.isRequired,
+//   movies: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       Title: PropTypes.string.isRequired,
+//       ImagePath: PropTypes.string.isRequired,
+//       Description: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+// };
