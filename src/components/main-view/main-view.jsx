@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 //Adding a State-Based Router
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
-import { setMovies, getMovies } from "../../actions/actions";
+import { setMovies, setUser } from "../../actions/actions";
 import MoviesList from "../movies-list/movies-list";
 
 //add react-bootstrap
@@ -24,13 +24,14 @@ import { MovieView } from "../movie-view/movie-view";
 import { NavBar } from "../navbar-view/navbar-view";
 import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
+import ProfileView from "../profile-view/profile-view";
 import "../../index.scss";
 
 export class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      // movies: [],
+      movies: [],
       // selectedMovie: null,
       // registered: null,
       user: null,
@@ -39,14 +40,34 @@ export class MainView extends React.Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
     console.log(accessToken);
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem("user"),
-      });
-      this.getMovies(accessToken);
+      console.log("before axios");
+      axios
+        .get(`https://my-flix-220508.herokuapp.com/users/${user}`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => {
+          console.log(res);
+          const fullUser = res.data;
+          this.setState({
+            fullUser: fullUser,
+            user: localStorage.getItem("user"),
+          });
+          this.getMovies(accessToken);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   }
+  //     this.setState({
+  //       user: localStorage.getItem("user"),
+  //     });
+  //     this.getMovies(accessToken);
+  //   }
+  // }
 
   getMovies(token) {
     axios
@@ -55,10 +76,10 @@ export class MainView extends React.Component {
       })
       .then((response) => {
         // Assign the result to the state
-        // this.setState({
-        //   movies: response.data,
-        this.props.setMovies(response.data);
-        // });
+        this.setState({
+          movies: response.data,
+          // this.props.setMovies(response.data);
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -98,7 +119,7 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies } = this.props;
+    const { movies } = this.state;
     let { user } = this.state;
     //console.log(this.props);
 
@@ -264,10 +285,30 @@ export class MainView extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => {
-  return { movies: state.movies };
+let mapStateToProps = (store) => {
+  return {
+    movies: store.movies,
+    user: store.user,
+  };
 };
-export default connect(mapStateToProps, { getMovies })(MainView);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (user) => {
+      dispatch(setUser(user));
+    },
+    setMovies: (movies) => {
+      dispatch(setMovies(movies));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainView);
+
+// let mapStateToProps = (state) => {
+//   return { movies: state.movies };
+// };
+// export default connect(mapStateToProps, { getMovies })(MainView);
 
 // MainView.propTypes = {
 //   setMovies: PropTypes.func.isRequired,

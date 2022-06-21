@@ -1,9 +1,10 @@
 import React from "react";
 import Col from "react-bootstrap/Col";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { MovieCard } from "../movie-card/movie-card";
+
 import VisibilityFilterInput from "../visibility-filter-input/visibility-filter-input";
-import PropTypes, { string } from "prop-types";
+import { MovieCard } from "../movie-card/movie-card";
 
 const mapStateToProps = (state) => {
   const { visibilityFilter } = state;
@@ -36,15 +37,13 @@ function MoviesList(props) {
   );
 }
 
-export default connect(mapStateToProps)(MoviesList);
+MoviesList.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      filter: PropTypes.func,
+    })
+  ),
+  visibilityFilter: PropTypes.string,
+};
 
-// MoviesList.propTypes = {
-//   movies: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       Title: PropTypes.string.isRequired,
-//       ImagePath: PropTypes.string.isRequired,
-//       Description: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-//   visibilityFilter: PropTypes.string.isRequired,
-// };
+export default connect(mapStateToProps)(MoviesList);

@@ -13,6 +13,8 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { setMovies } from "../../actions/actions";
 
 export function ProfileView({ movies }) {
   const [username, setUsername] = useState("");
@@ -34,8 +36,6 @@ export function ProfileView({ movies }) {
         setUsername(response.data.Username);
         setEmail(response.data.Email);
         setFavoriteMovies(response.data.FavoriteMovies);
-        setFavouriteMovies(response.data.FavouriteMovies);
-        // setFavouriteMovies(response.data.FavouriteMovies);
         setBirthday(response.data.Birthday.substring(0, 10));
         console.log(response.data);
       })
@@ -278,8 +278,16 @@ export function ProfileView({ movies }) {
   );
 }
 
-ProfileView.propTypes = {
-  movies: PropTypes.array.isRequired,
-  user: PropTypes.string.isRequired,
-  onUserUpdated: PropTypes.func.isRequired,
+// ProfileView.propTypes = {
+//   movies: PropTypes.array.isRequired,
+//   user: PropTypes.string.isRequired,
+//   onUserUpdated: PropTypes.func.isRequired,
+// };
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
 };
+
+export default connect(mapStateToProps, { setMovies })(ProfileView);

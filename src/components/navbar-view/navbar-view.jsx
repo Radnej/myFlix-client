@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import { connect } from "react-redux";
+import { setUser } from "../../actions/actions";
+
 export function NavBar() {
   let user = localStorage.getItem("user");
 
@@ -47,6 +50,15 @@ export function NavBar() {
   );
 }
 
-NavBar.propTypes = {
-  user: PropTypes.string.isRequired,
+// NavBar.propTypes = {
+//   user: PropTypes.string.isRequired,
+// };
+
+let mapStateToProps = (state) => {
+  return {
+    movies: state.movies,
+    user: state.user,
+  };
 };
+
+export default connect(mapStateToProps, { setUser })(NavBar);
