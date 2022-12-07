@@ -1,12 +1,16 @@
 # myFlix-client
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/9c111562-791a-43f0-aa97-078af0cef12e/deploy-status)](https://app.netlify.com/sites/myflix-501fc4/deploys)
-
-Live version: https://neflixx.netlify.app/
-
 ## Project description
 
 This is the client-side interface for a movie app based on server-side REST API and database ([movie_api](https://github.com/lkarow/movie_api)). The interface is built with React and Bootstrap. Users are able to sign up and login, update their personal information, and create a list of their favorite movies.
+
+## Demo
+
+![myFlix_Client](https://user-images.githubusercontent.com/91905344/206287497-107da85e-679d-4a6e-ac92-a6bdeee5d83e.gif)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9c111562-791a-43f0-aa97-078af0cef12e/deploy-status)](https://app.netlify.com/sites/myflix-501fc4/deploys)
+
+Live version: https://neflixx.netlify.app/
 
 
 ## Built With
@@ -29,22 +33,25 @@ This is the client-side interface for a movie app based on server-side REST API 
 - React-Router-DOM
 - Redux
 
-## Get Started
+## Tool Used
+- VS Code
 
-1. Clone the project
-2. Install all dependencies mentioned in package.json
-3. cd to the project directory
-4. Run it by:
+## To Run Locally
 
+1. Clone or download repository first and open it with you favourite editor.
 ```bash
-$npm run dev
+git clone https://github.com/Radnej/myFlix_client
 ```
+2. Install the depedencies mentioned in package.json
+```bash
+$ npm install
+```
+3. cd to the project directory
+
 
 Note: Please make sure you install parcel v2!
 
-## Run the Project
-
-You can use the command:
+4. Run the Project by using the comment below
 
 ```bash
 parcel src/index.html
