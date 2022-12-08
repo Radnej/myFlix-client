@@ -46,7 +46,7 @@ git clone https://github.com/Radnej/myFlix_client
 ```bash
 $ npm install
 ```
-3. cd to the project directory
+3. Cd to the project directory
 
 
 Note: Please make sure you install parcel v2!
