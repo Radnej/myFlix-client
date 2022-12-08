@@ -13,7 +13,7 @@ This is the client-side interface for a movie app based on server-side REST API 
 Live version:[ myFlix-client](https://neflixx.netlify.app/)
 
 
-## Built With
+## Technologies Used
 
 - React
 - React-Bootstrap
